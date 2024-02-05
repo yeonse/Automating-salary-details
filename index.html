@@ -6,14 +6,15 @@
 <title>Work Hours Logger</title>
 <style>
   table {
-    width: 100%;
+    width: 98.5vw; /* Adjusts the table width to be 80% of the viewport width */
     border-collapse: collapse;
     text-align: center;
     font-family: 'Arial', sans-serif;
   }
   th, td {
     border: 1px solid #000;
-    padding: 8px;
+    padding: 0.8vw; /* Scales padding with the viewport width */
+    font-size: 1.2vw; /* Scales font size with the viewport width */
   }
   th {
     background-color: #a0a0a0;
@@ -23,12 +24,12 @@
     background-color: #e0e0e0;
     font-weight: bold;
   }
-  tfoot td {
-    border: 1px solid #000;
-  }
-  .blue {
-    background-color: #003399;
-    color: #ffffff;
+  .btn {
+    padding: 0.5vw 1vw; /* Scales button padding with the viewport width */
+    margin: 0.2vw;
+    cursor: pointer;
+    font-size: 1.0vw; /* Scales button font size with the viewport width */
+    display: inline-block; /* Ensures buttons don't break layout */
   }
   .center {
     text-align: center;
@@ -39,35 +40,31 @@
   .total-label {
     text-align: left;
   }
-  .btn {
-    padding: 5px 10px;
-    margin: 2px;
-    cursor: pointer;
-  }
-  @media screen and (max-width: 600px) {
-  table {
-    overflow-x: auto;
-    display: block;
-  }
-}
-@media only screen and (max-width: 600px) {
-  body {
-    font-size: 14px;
-  }
-  
-  .btn {
-    padding: 10px;
-    margin: 5px;
-  }
-  
-  th, td {
-    padding: 4px;
+
+  /* Responsive adjustments for smaller and larger screens */
+  @media (max-width: 600px) {
+    th, td {
+      font-size: 3vw; /* Increases font size for small devices */
+      padding: 2vw; /* Increases padding for small devices */
+    }
+    .btn {
+      font-size: 2.5vw; /* Increases button font size for better usability on small devices */
+      padding: 1.5vw 3vw;
+    }
   }
 
-  /* Additional styles here for smaller screens */
-}
-
+  @media (min-width: 1200px) {
+    th, td {
+      font-size: 12px; /* Fixes font size for large devices */
+      padding: 10px; /* Fixes padding for large devices */
+    }
+    .btn {
+      font-size: 10px; /* Fixes button font size for large devices */
+      padding: 5px 10px;
+    }
+  }
 </style>
+
 </head>
 <body>
 
