@@ -48,14 +48,14 @@
     @media (max-width: 860px) {
     th, td {
       padding: 1px; /* Reduced padding */
-      font-size: 8px; /* Smaller font size */
+      font-size: 6px; /* Smaller font size */
     }
     .btn {
       padding: 1px 2px; /* Smaller buttons */
       font-size: 6px; /* Smaller button text */
     }
     input[type="number"], input[type="time"], input[type="text"], input[type="date"] {
-      font-size: 8px; /* Smaller input text */
+      font-size: 6px; /* Smaller input text */
       padding: 1px; /* Reduced padding inside inputs */
     }
     input[type="text"], input[type="number"], input[type="date"], input[type="time"] {
@@ -65,7 +65,7 @@
   .btn {
     width: auto; /* Allow buttons to shrink around text */
     padding: 1px 2px; /* Adjust padding to reduce size */
-    font-size: 12px; /* Reduce font size for smaller screens */
+    font-size: 8px; /* Reduce font size for smaller screens */
   }
   }
 </style>
@@ -222,7 +222,7 @@ function recordLeave(button) {
             const durationMins = Math.floor(durationMs / 60000);
             const hours = Math.floor(durationMins / 60);
             const minutes = durationMins % 60;
-            durationCell.textContent = `${hours}시간 ${minutes}분`;
+            durationCell.textContent = `${hours}h ${minutes}m`;
             saveRecords(); // Save records automatically after duration calculation
         }
     }
@@ -238,9 +238,9 @@ function recordLeave(button) {
         const totalMinutes = Array.from(document.getElementById('logBody').rows).reduce((acc, row) => {
             const durationText = row.cells[3].textContent;
             if (durationText && durationText !== '-') {
-                const parts = durationText.split('시간 ');
+                const parts = durationText.split('h ');
                 const hours = parseInt(parts[0], 10);
-                const minutes = parseInt(parts[1].replace('분', ''), 10);
+                const minutes = parseInt(parts[1].replace('m', ''), 10);
                 return acc + (hours * 60) + minutes;
             }
             return acc;
@@ -262,16 +262,16 @@ function recordLeave(button) {
         Array.from(tbody.rows).forEach(row => {
             const durationText = row.cells[3].textContent;
             if (durationText && durationText !== '-') {
-                const parts = durationText.split('시간 ');
+                const parts = durationText.split('h ');
                 const hours = parseInt(parts[0], 10);
-                const minutes = parseInt(parts[1].replace('분', ''), 10);
+                const minutes = parseInt(parts[1].replace('m', ''), 10);
                 totalMinutes += (hours * 60) + minutes;
             }
         });
 
         const totalHours = Math.floor(totalMinutes / 60);
         const totalExtraMinutes = totalMinutes % 60;
-        document.getElementById('totalHours').textContent = `Total Hours: ${totalHours}시간 ${totalExtraMinutes}분`;
+        document.getElementById('totalHours').textContent = `총 근무 시간 : ${totalHours}h ${totalExtraMinutes}m`;
     }
 
     function saveRecords() {
