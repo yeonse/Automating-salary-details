@@ -47,17 +47,26 @@
     /* Existing styles optimized for smaller screens */
     @media (max-width: 860px) {
     th, td {
-      padding: 4px; /* Reduced padding */
+      padding: 1px; /* Reduced padding */
       font-size: 8px; /* Smaller font size */
     }
     .btn {
-      padding: 3px 6px; /* Smaller buttons */
+      padding: 1px 2px; /* Smaller buttons */
       font-size: 6px; /* Smaller button text */
     }
     input[type="number"], input[type="time"], input[type="text"], input[type="date"] {
       font-size: 8px; /* Smaller input text */
-      padding: 2px; /* Reduced padding inside inputs */
+      padding: 1px; /* Reduced padding inside inputs */
     }
+    input[type="text"], input[type="number"], input[type="date"], input[type="time"] {
+    width: 80%; /* Reduce width to 80% of the cell's width */
+    max-width: 100px; /* Optional: set a max-width to avoid overly wide inputs */
+  }
+  .btn {
+    width: auto; /* Allow buttons to shrink around text */
+    padding: 1px 2px; /* Adjust padding to reduce size */
+    font-size: 12px; /* Reduce font size for smaller screens */
+  }
   }
 </style>
 </head>
@@ -139,7 +148,7 @@
     const actionCell = row.insertCell(5);
     actionCell.innerHTML = '<button class="btn" onclick="recordCommute(this)">출근</button>' +
                            '<button class="btn" onclick="recordLeave(this)">퇴근</button>' +
-                           '<button class="btn" onclick="deleteRow(this)">삭제</button>';
+                           '<button class="btn" onclick="deleteRow(this)">X</button>';
 
     saveRecords(); // Save records automatically when a new row is added
 }
