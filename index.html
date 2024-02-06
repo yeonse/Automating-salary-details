@@ -94,12 +94,14 @@
       <tr>
         <td colspan="6">
           <button onclick="addRow()" class="btn">추가</button>
+          <button class="btn" onclick="eraseAllRecords()">전체 삭제</button>
         </td>
       </tr>
     </tfoot>
   </table>
 
-  <div id="totalHours" style="margin-top: 20px; font-size: 15px; font-weight: bold;">
+  <div>
+    <div id="totalHours" style="margin-top: 20px; font-size: 15px; font-weight: bold;">
     총 근무 시간: 0
   </div>
 
@@ -155,6 +157,26 @@
                            '<button class="btn" onclick="deleteRow(this)">X</button>';
 
     saveRecords(); // Save records automatically when a new row is added
+}
+
+function eraseAllRecords() {
+  // Confirm with the user before erasing records
+  const confirmErase = confirm("모든 기록을 지우시겠습니까?");
+  if (confirmErase) {
+    // Clear the table body
+    document.getElementById('logBody').innerHTML = '';
+    
+    // Reset total work hours and earnings display
+    document.getElementById('totalHours').textContent = '총 근무 시간: 0';
+    document.getElementById('totalEarnings').textContent = '';
+
+    // Clear records from local storage
+    localStorage.removeItem('workRecords');
+    localStorage.removeItem('hourlyWage'); // Optional: Decide if you also want to reset the hourly wage
+
+    // Update UI accordingly
+    updateTotalHours(); // This will refresh the total hours display, even though it's set to 0 above
+  }
 }
 
 function createInput(type, className, value) {
