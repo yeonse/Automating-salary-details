@@ -99,13 +99,13 @@
     </tfoot>
   </table>
 
-  <div id="totalHours" style="margin-top: 20px; font-size: 20px;">
+  <div id="totalHours" style="margin-top: 20px; font-size: 15px; font-weight: bold;">
     총 근무 시간: 0
   </div>
 
-  <div style="margin-top: 10px; font-size: 20px;">
-    시급: <input type="number" id="hourlyWage" style="width: 70px; height: 20px; font-size: 14px;" /> 원
-    <button class="btn" onclick="calculateTotalEarnings()" style="padding: 5px 10px; margin: 2px; cursor: pointer; font-size: 13px">급여 계산</button>
+  <div style="margin-top: 10px; font-size: 15px; font-weight: bold;">
+    시급: <input type="number" id="hourlyWage" style="width: 70px; height: 20px; font-size: 12px;" /> 원
+    <button class="btn" onclick="calculateTotalEarnings()" style="padding: 5px 10px; margin: 2px; cursor: pointer; font-size: 12px">급여 계산</button>
     <span id="totalEarnings"></span>
   </div>
   
@@ -128,7 +128,7 @@
     if (lastRowIndex >= 0 && Object.keys(data).length === 0) {
         const lastRow = rows[lastRowIndex];
         defaultData = {
-            date: lastRow.cells[0].getElementsByTagName('input')[0].value,
+          date: formatDateForInput(new Date()), // Use today's date
             commute: lastRow.cells[1].getElementsByTagName('input')[0].value,
             leave: lastRow.cells[2].getElementsByTagName('input')[0].value,
             duration: lastRow.cells[3].textContent,
