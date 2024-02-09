@@ -148,9 +148,7 @@
     addSpecialNoteListener(specialNoteCell.getElementsByTagName('input')[0]);
 
     const actionCell = row.insertCell(5);
-    actionCell.innerHTML = '<button class="btn" onclick="recordCommute(this)">출</button>' +
-                           '<button class="btn" onclick="recordLeave(this)">퇴</button>' +
-                           '<button class="btn" onclick="deleteRow(this)">X</button>';
+    actionCell.innerHTML = '<button class="btn" onclick="deleteRow(this)">X</button>';
 
     saveRecords(); // Save records automatically when a new row is added
 }
@@ -213,24 +211,6 @@ function addSpecialNoteListener(input) {
         row.parentNode.removeChild(row);
         saveRecords(); // Update localStorage and total hours after deletion
     }
-
-
-    function recordCommute(button) {
-    const row = button.closest('tr'); // Ensures we are working with the correct row
-    const commuteInput = row.cells[1].querySelector('input[type="time"]');
-    commuteInput.value = formatTime(new Date()); // Correctly format and set the commute time
-    calculateDuration(commuteInput); // Recalculate the duration
-    saveRecords(); // Save the updated records
-}
-
-function recordLeave(button) {
-    const row = button.closest('tr'); // Ensures we are working with the correct row
-    const leaveInput = row.cells[2].querySelector('input[type="time"]');
-    leaveInput.value = formatTime(new Date()); // Correctly format and set the leave time
-    calculateDuration(leaveInput); // Recalculate the duration
-    saveRecords(); // Save the updated records
-}
-
 
     function calculateDuration(input) {
         const row = input.parentNode.parentNode;
