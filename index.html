@@ -152,8 +152,8 @@
     addSpecialNoteListener(specialNoteCell.getElementsByTagName('input')[0]);
 
     const actionCell = row.insertCell(5);
-    actionCell.innerHTML = '<button class="btn" onclick="recordCommute(this)">출근</button>' +
-                           '<button class="btn" onclick="recordLeave(this)">퇴근</button>' +
+    actionCell.innerHTML = '<button class="btn" onclick="recordCommute(this)">출</button>' +
+                           '<button class="btn" onclick="recordLeave(this)">퇴</button>' +
                            '<button class="btn" onclick="deleteRow(this)">X</button>';
 
     saveRecords(); // Save records automatically when a new row is added
@@ -179,11 +179,17 @@ function eraseAllRecords() {
   }
 }
 
-function createInput(type, className, value) {
+function createInput(type, className, value, name = '') {
     const input = document.createElement('input');
     input.type = type;
     input.className = className;
     input.value = value;
+    if (name) input.setAttribute('name', name); // 이름 속성 추가
+    if (type === 'date') {
+        input.addEventListener('change', function() { // 변경 이벤트 리스너 추가
+            saveRecords(); // 변경사항 저장
+        });
+    }
     return input;
 }
 
@@ -300,29 +306,31 @@ function recordLeave(button) {
         document.getElementById('totalHours').textContent = `총 근무 시간 : ${totalHours}h ${totalExtraMinutes}m`;
     }
 
-    function saveRecords() {
-        const tbody = document.getElementById('logBody');
-        const records = Array.from(tbody.rows).map(row => {
-            return {
-                date: row.cells[0].getElementsByTagName('input')[0].value, // Capture the date input value
-                commute: row.cells[1].getElementsByTagName('input')[0].value, // Capture the commute time input value
-                leave: row.cells[2].getElementsByTagName('input')[0].value, // Capture the leave time input value
-                duration: row.cells[3].textContent, // Capture the duration text
-                specialNote: row.cells[4].getElementsByTagName('input')[0].value // Now capturing the "특이사항" input value
-            };
-        });
+// saveRecords 함수 내에서 일자 값도 저장하도록 기존 로직 유지
+function saveRecords() {
+    const tbody = document.getElementById('logBody');
+    const records = Array.from(tbody.rows).map(row => {
+        return {
+            date: row.cells[0].getElementsByTagName('input')[0].value, // 일자 값 캡처
+            commute: row.cells[1].getElementsByTagName('input')[0].value,
+            leave: row.cells[2].getElementsByTagName('input')[0].value,
+            duration: row.cells[3].textContent,
+            specialNote: row.cells[4].getElementsByTagName('input')[0].value
+        };
+    });
 
     localStorage.setItem('workRecords', JSON.stringify(records));
-    updateTotalHours(); // Update total hours whenever records are saved
+    updateTotalHours(); // 총 근무 시간 업데이트
 }
 
 
-    function loadRecords() {
-        const records = JSON.parse(localStorage.getItem('workRecords')) || [];
-        records.forEach(record => {
-            addRow(record); // Make sure addRow can handle the record object format properly
-        });
-    }
+// 페이지 로드 시 저장된 레코드를 로드하는 기능 유지
+function loadRecords() {
+    const records = JSON.parse(localStorage.getItem('workRecords')) || [];
+    records.forEach(record => {
+        addRow(record); // 저장된 레코드로 행 추가
+    });
+}
 
     function formatTime(date) {
         let hours = date.getHours();
