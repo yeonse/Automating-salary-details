@@ -173,6 +173,20 @@ function eraseAllRecords() {
   }
 }
 
+function sortRowsByDate() {
+    const tbody = document.getElementById('logBody');
+    let rows = Array.from(tbody.querySelectorAll('tr'));
+    // 날짜 기준으로 행 정렬
+    rows.sort((a, b) => {
+        let dateA = a.cells[0].getElementsByTagName('input')[0].value;
+        let dateB = b.cells[0].getElementsByTagName('input')[0].value;
+        return new Date(dateA) - new Date(dateB);
+    });
+
+    // 정렬된 행을 tbody에 다시 추가
+    rows.forEach(row => tbody.appendChild(row));
+}
+
 function createInput(type, className, value, name = '') {
     const input = document.createElement('input');
     input.type = type;
@@ -182,6 +196,7 @@ function createInput(type, className, value, name = '') {
     if (type === 'date') {
         input.addEventListener('change', function() { // 변경 이벤트 리스너 추가
             saveRecords(); // 변경사항 저장
+            sortRowsByDate(); // 추가: 행을 날짜 순으로 정렬
         });
     }
     return input;
