@@ -57,15 +57,19 @@
     input[type="number"], input[type="time"], input[type="text"], input[type="date"] {
       font-size: 8px; /* Smaller input text */
       padding: 1px; /* Reduced padding inside inputs */
+      width: 90%;
     }
-    input[type="text"], input[type="number"], input[type="date"], input[type="time"] {
-    width: 80%; /* Reduce width to 80% of the cell's width */
-    max-width: 100px; /* Optional: set a max-width to avoid overly wide inputs */
+    input[type="text"]{
+    width: 93%;
   }
   .btn {
     width: auto; /* Allow buttons to shrink around text */
     padding: 1px 2px; /* Adjust padding to reduce size */
     font-size: 8px; /* Reduce font size for smaller screens */
+  }
+  #pad {
+    padding-left: 2px;
+    padding-right: 2px;
   }
   }
 </style>
@@ -78,7 +82,7 @@
         <th>일자</th>
         <th>출근</th>
         <th>퇴근</th>
-        <th>근무시간</th>
+        <th id="pad">근무시간</th>
         <th>특이사항</th>
         <th>비고</th>
       </tr>
